@@ -1,11 +1,7 @@
-import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
-import { useFrame } from "@react-three/fiber";
-import { MeshWobbleMaterial, useGLTF } from "@react-three/drei";
-import { useSpring, a } from "@react-spring/three";
+import { useGLTF } from "@react-three/drei";
 
 export function Desk() {
-  const { scene } = useGLTF("/test.glb");
+  const { scene } = useGLTF("/untitled2.glb");
 
   return <primitive object={scene} />;
 }

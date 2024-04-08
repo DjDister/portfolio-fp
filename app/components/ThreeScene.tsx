@@ -1,46 +1,80 @@
 "use client";
-
+import React, { useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import {
-  Fisheye,
-  CameraControls,
-  PerspectiveCamera,
-  Environment,
-  Stats,
-  OrbitControls,
-} from "@react-three/drei";
+import { Stats } from "@react-three/drei";
 import { Desk } from "./Scene";
+import Camera from "./Camera";
+import store from "../store";
 
 const ThreeScene = () => {
+  const [cameraPosition, setCameraPosition] = useState<number[]>([0, 0, 15]);
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    console.log("click");
+    setIsClicked(true);
+    store.targetObj.position.set(0, 0.5, 1);
+  };
+
   return (
     <div className="w-full h-full">
-      <Canvas flat>
+      <div className="absolute top-0 right-0 z-20">
+        x
+        <input
+          value={cameraPosition[0]}
+          onChange={(e) =>
+            setCameraPosition((prev) => [
+              parseFloat(e.target.value),
+              prev[1],
+              prev[2],
+            ])
+          }
+          type="numeric"
+        />
+        y
+        <input
+          value={cameraPosition[1]}
+          onChange={(e) =>
+            setCameraPosition((prev) => [
+              prev[0],
+              parseFloat(e.target.value),
+              prev[2],
+            ])
+          }
+          type="numeric"
+        />
+        z
+        <input
+          value={cameraPosition[2]}
+          onChange={(e) =>
+            setCameraPosition((prev) => [
+              prev[0],
+              prev[1],
+              parseFloat(e.target.value),
+            ])
+          }
+          type="numeric"
+        />
+      </div>
+      <Canvas flat camera={{ manual: true }} onClick={handleClick}>
         <ambientLight intensity={Math.PI / 2} />
-        <directionalLight color="white" position={[0, 0, 10]} />
-        <mesh>
-          <boxGeometry />
-          <meshStandardMaterial />
-        </mesh>
-        <group scale={2} position={[0, 0, 0]}>
+        <directionalLight
+          color="white"
+          position={[0, 1, 10]}
+          castShadow={false}
+        />
+        <group scale={2} position={[0, -2, 0]}>
           <Desk />
         </group>
-        {/* <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} /> */}
-        {/* <Fisheye zoom={0}>
-          <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} />
-          <ambientLight intensity={Math.PI / 2} />
-          <group scale={20} position={[5, -11, -5]}>
-            <Desk />
-            <Camera />
-          </group>
-          <PerspectiveCamera makeDefault position={[0, 0, 18.5]} />
-        </Fisheye> */}
-        {/* <OrbitControls position={[0, 0, 0]} /> */}
-        <PerspectiveCamera makeDefault position={[0, 0, 18.5]} />
-        <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} />
-
+        <Camera
+          isClicked={isClicked}
+          position={cameraPosition}
+          onCameraFinish={() => setIsClicked(false)}
+        />
         <Stats />
       </Canvas>
     </div>
   );
 };
+
 export default ThreeScene;
