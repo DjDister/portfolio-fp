@@ -25,12 +25,11 @@ export default function Camera({
   isClicked: boolean;
   onCameraFinish: () => void;
 }) {
-  // try with storing position in ref and using useFrame
   const positionVector = new Vector3().fromArray(position);
   const [positionCamera, setPositionCamera] = useState(positionVector);
   const cameraRef: RefObject<PerspectiveCameraType> =
     useRef<PerspectiveCameraType>(null);
-  console.log(position);
+  console.log(positionCamera);
   console.log(cameraRef.current?.position);
   const [hasReachedTarget, setHasReachedTarget] = useState(false);
 
