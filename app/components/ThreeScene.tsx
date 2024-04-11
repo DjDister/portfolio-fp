@@ -6,12 +6,14 @@ import { Desk } from "./Scene";
 import Camera from "./Camera";
 import store from "../store";
 import CameraControlInputs from "./CameraControlInputs";
+import PortoflioContainer from "./Portfolio/PortoflioContainer";
+import { HIDE_MODEL_TIMEOUT } from "@/utils/constants";
 
 const ThreeScene = () => {
   const [cameraPosition, setCameraPosition] = useState<number[]>([0, 0, 15]);
   const [isClicked, setIsClicked] = useState(false);
-  const [cameraZoomedIn, setCameraZoomedIn] = useState(false);
-  const [isModelHidden, setIsModelHidden] = useState(false);
+  const [cameraZoomedIn, setCameraZoomedIn] = useState(true);
+  const [isModelHidden, setIsModelHidden] = useState(true);
   const handleClick = () => {
     console.log("click");
     setIsClicked(true);
@@ -21,10 +23,15 @@ const ThreeScene = () => {
   const handleCameraFinish = () => {
     setIsClicked(false);
     setCameraZoomedIn(true);
+
+    setTimeout(() => {
+      setIsModelHidden(true);
+    }, HIDE_MODEL_TIMEOUT);
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      <PortoflioContainer shouldAppear={cameraZoomedIn} />
       <CameraControlInputs
         cameraPosition={cameraPosition}
         onValueChange={(newPosition: number[]) =>
@@ -38,7 +45,7 @@ const ThreeScene = () => {
           position={[0, 1, 10]}
           castShadow={false}
         />
-        <group visible={!cameraZoomedIn} scale={2} position={[0, -2, 0]}>
+        <group visible={!isModelHidden} scale={2} position={[0, -2, 0]}>
           <Desk />
         </group>
         <Camera
