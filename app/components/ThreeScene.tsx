@@ -9,11 +9,12 @@ import CameraControlInputs from "./CameraControlInputs";
 import PortoflioContainer from "./Portfolio/PortoflioContainer";
 import { HIDE_MODEL_TIMEOUT } from "@/utils/constants";
 
-const ThreeScene = () => {
+const ThreeScene = ({ onCameraFinish }: { onCameraFinish: () => void }) => {
   const [cameraPosition, setCameraPosition] = useState<number[]>([0, 0, 15]);
   const [isClicked, setIsClicked] = useState(false);
-  const [cameraZoomedIn, setCameraZoomedIn] = useState(true);
-  const [isModelHidden, setIsModelHidden] = useState(true);
+  const [cameraZoomedIn, setCameraZoomedIn] = useState(false);
+  const [isModelHidden, setIsModelHidden] = useState(false);
+
   const handleClick = () => {
     console.log("click");
     setIsClicked(true);
@@ -26,6 +27,7 @@ const ThreeScene = () => {
 
     setTimeout(() => {
       setIsModelHidden(true);
+      onCameraFinish();
     }, HIDE_MODEL_TIMEOUT);
   };
 
