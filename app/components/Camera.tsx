@@ -29,13 +29,13 @@ export default function Camera({
   const [positionCamera, setPositionCamera] = useState(positionVector);
   const cameraRef: RefObject<PerspectiveCameraType> =
     useRef<PerspectiveCameraType>(null);
-  console.log(positionCamera);
-  console.log(cameraRef.current?.position);
+  // console.log(positionCamera);
+  // console.log(cameraRef.current?.position);
   const [hasReachedTarget, setHasReachedTarget] = useState(false);
 
   useFrame(({ camera }) => {
     if (!isClicked || hasReachedTarget) return;
-    console.log("camera", camera.position);
+    // console.log("camera", camera.position);
     camera.position.y = T.MathUtils.damp(
       camera.position.y,
       store.targetObj.position.y,
