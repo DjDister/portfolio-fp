@@ -1,11 +1,7 @@
-import {
-  CameraControls,
-  OrbitControls,
-  PerspectiveCamera,
-} from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import React, { RefObject, useRef, useState } from "react";
-import { PerspectiveCamera as PerspectiveCameraType, Vector3 } from "three";
+import React, { useState } from "react";
+import { Vector3 } from "three";
 import * as T from "three";
 import store from "../store";
 
@@ -31,8 +27,6 @@ export default function Camera({
 }) {
   const positionVector = new Vector3().fromArray(position);
   const [positionCamera, setPositionCamera] = useState(positionVector);
-  const cameraRef: RefObject<PerspectiveCameraType> =
-    useRef<PerspectiveCameraType>(null);
   const [hasReachedTarget, setHasReachedTarget] = useState(false);
 
   useFrame(({ camera }) => {
@@ -41,19 +35,19 @@ export default function Camera({
       camera.position.y,
       store.targetObj.position.y,
       0.1,
-      0.1
+      0.35
     );
     camera.position.x = T.MathUtils.damp(
       camera.position.x,
       store.targetObj.position.x,
       0.1,
-      0.5
+      0.35
     );
     camera.position.z = T.MathUtils.damp(
       camera.position.z,
       store.targetObj.position.z,
       0.1,
-      0.2
+      0.35
     );
     camera.lookAt(0, 0.5, 0);
 
@@ -71,11 +65,7 @@ export default function Camera({
 
   return (
     <>
-      <PerspectiveCamera
-        ref={cameraRef}
-        makeDefault
-        position={positionCamera}
-      />
+      <PerspectiveCamera makeDefault position={positionCamera} />
       <OrbitControls
         enableRotate={!isClicked}
         enablePan={false}
@@ -83,9 +73,9 @@ export default function Camera({
         position={[0, 0.5, 0]}
         target={[0, 0.5, 0]}
         minAzimuthAngle={-Math.PI / 4}
-        maxAzimuthAngle={Math.PI / 4}
-        minPolarAngle={Math.PI / 6}
-        maxPolarAngle={Math.PI - Math.PI / 6}
+        maxAzimuthAngle={Math.PI / 5}
+        minPolarAngle={Math.PI / 4}
+        maxPolarAngle={Math.PI - Math.PI / 3}
       />
     </>
   );
