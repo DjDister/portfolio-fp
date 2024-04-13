@@ -76,7 +76,17 @@ export default function Camera({
         makeDefault
         position={positionCamera}
       />
-      <OrbitControls enablePan={false} enableZoom={false} />
+      <OrbitControls
+        enableRotate={!isClicked}
+        enablePan={false}
+        enableZoom={false}
+        position={[0, 0.5, 0]}
+        target={[0, 0.5, 0]}
+        minAzimuthAngle={-Math.PI / 4}
+        maxAzimuthAngle={Math.PI / 4}
+        minPolarAngle={Math.PI / 6}
+        maxPolarAngle={Math.PI - Math.PI / 6}
+      />
     </>
   );
 }
