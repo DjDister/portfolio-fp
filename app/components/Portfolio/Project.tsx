@@ -1,6 +1,7 @@
 import { ProjectType } from "@/types/Portoflio.types";
 import React from "react";
 import StyledLink from "./Link";
+import Image from "next/image";
 
 type ProjectProps = {
   project: ProjectType;
@@ -9,11 +10,13 @@ type ProjectProps = {
 export default function Project({ project }: ProjectProps) {
   return (
     <div className="w-full flex gap-8">
-      <div className="w-[600px] rounded-lg aspect-square bg-[#1A1A1A] py-24 px-14 flex items-center justify-center">
-        <img
+      <div className="w-[600px] relative rounded-lg aspect-square bg-[#1A1A1A] py-24 px-14 flex items-center justify-center">
+        <Image
           src={project.image}
           alt={project.title}
-          className="w-full rounded-md h-[347px] object-cover"
+          className="rounded-md"
+          width={600}
+          height={347}
         />
       </div>
       <div className="flex flex-1 flex-col gap-6">

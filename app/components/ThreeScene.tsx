@@ -34,12 +34,14 @@ const ThreeScene = ({ onCameraFinish }: { onCameraFinish: () => void }) => {
   return (
     <div className="w-full h-full relative">
       <PortoflioContainer shouldAppear={cameraZoomedIn} />
-      <CameraControlInputs
-        cameraPosition={cameraPosition}
-        onValueChange={(newPosition: number[]) =>
-          setCameraPosition(() => newPosition)
-        }
-      />
+      {IS_DEV_ENV && (
+        <CameraControlInputs
+          cameraPosition={cameraPosition}
+          onValueChange={(newPosition: number[]) =>
+            setCameraPosition(() => newPosition)
+          }
+        />
+      )}
       <Canvas flat camera={{ manual: true }} onClick={handleClick}>
         <ambientLight intensity={Math.PI / 2} />
         <directionalLight
