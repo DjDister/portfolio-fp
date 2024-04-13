@@ -7,7 +7,7 @@ import Camera from "./Camera";
 import store from "../store";
 import CameraControlInputs from "./CameraControlInputs";
 import PortoflioContainer from "./Portfolio/PortoflioContainer";
-import { HIDE_MODEL_TIMEOUT } from "@/utils/constants";
+import { HIDE_MODEL_TIMEOUT, IS_DEV_ENV } from "@/utils/constants";
 
 const ThreeScene = ({ onCameraFinish }: { onCameraFinish: () => void }) => {
   const [cameraPosition, setCameraPosition] = useState<number[]>([0, 0, 15]);
@@ -55,7 +55,7 @@ const ThreeScene = ({ onCameraFinish }: { onCameraFinish: () => void }) => {
           position={cameraPosition}
           onCameraFinish={handleCameraFinish}
         />
-        <Stats />
+        {IS_DEV_ENV && <Stats />}
       </Canvas>
     </div>
   );

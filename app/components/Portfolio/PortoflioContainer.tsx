@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import About from "./About";
 import Projects from "./Projects";
+import { SHOW_PORTOFLIO_TIMEOUT } from "@/utils/constants";
 
 export default function PortoflioContainer({
   shouldAppear,
@@ -9,19 +10,17 @@ export default function PortoflioContainer({
   shouldAppear?: boolean;
 }) {
   const [animationFinished, setAnimationFinished] = useState(false);
+
   useEffect(() => {
     if (!shouldAppear) return;
     const timeout = setTimeout(() => {
       setAnimationFinished(true);
-      console.log("finishing");
-    }, 500);
+    }, SHOW_PORTOFLIO_TIMEOUT);
 
     return () => {
       clearTimeout(timeout);
     };
   }, []);
-
-  // console.log("animationFinished", animationFinished);
 
   return (
     <div

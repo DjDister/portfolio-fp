@@ -24,7 +24,10 @@ export default function Project({ project }: ProjectProps) {
           <div>
             {project.techStack.map((tech) => {
               return (
-                <div className="mb-2 border-b-[1px] py-2 border-[#484848]">
+                <div
+                  key={tech}
+                  className="mb-2 border-b-[1px] py-2 border-[#484848]"
+                >
                   {tech}
                 </div>
               );

@@ -2,6 +2,9 @@ import React from "react";
 import GithubIcon from "../assets/GithubIcon";
 import SocialMediaIcon from "./SocialMediaIcon";
 import LinkedInIcon from "../assets/LinkedInIcon";
+import Image from "next/image";
+import { GITHUB_LINK, LINKEDIN_LINK } from "@/utils/constants";
+import ContactButton from "./ContactButton";
 
 export default function About() {
   return (
@@ -16,17 +19,20 @@ export default function About() {
             computer games.
           </div>
           <div className="flex gap-4">
-            <button className="bg-[#D3E97A] font-semibold text-black flex items-center justify-center p-2 px-6 rounded-full">
-              CONTACT ME
-              <div className="bg-black w-3 h-3 rounded-full ml-6" />
-            </button>
-            <SocialMediaIcon icon={<GithubIcon />} />
-            <SocialMediaIcon icon={<LinkedInIcon />} />
+            <ContactButton />
+            <SocialMediaIcon href={GITHUB_LINK} icon={<GithubIcon />} />
+            <SocialMediaIcon href={LINKEDIN_LINK} icon={<LinkedInIcon />} />
           </div>
         </div>
       </div>
-      <div className="w-[600px] h-[700px] bg-[#C7C7C7]">
-        <img src="" alt="" />
+      <div className="w-[600px] h-[700px] relative bg-[#C7C7C7]">
+        <Image
+          src="/my_photo_landing.png"
+          alt="Picture of the author"
+          fill
+          objectFit="cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
       </div>
     </div>
   );
